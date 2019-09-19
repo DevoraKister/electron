@@ -1,0 +1,163 @@
+<div id="sideBar">
+  <div class="page-wrapper chiller-theme toggled">
+    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+      <i class="fas fa-bars"></i>
+    </a>
+    <nav id="sidebar" class="sidebar-wrapper">
+      <div class="sidebar-content">
+        <div class="sidebar-brand">
+          <a href="#">filters</a>
+
+        </div>
+        <div class="sidebar-header">
+
+        </div>
+        <div class="sidebar-search">
+          <div>
+            <div class="input-group-append">
+              <!-- <a href="#fake" class="enter"> -->
+                <span class="group-text" (click)="showCycle()">
+                  show the cycle bin
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </span>
+              <!-- </a> -->
+              <!-- <a href="#fake" class="enter"> -->
+                <span class="group-text" (click)="SaveFilter()">
+                  save as folder
+                  <i class="fa fa-download" id="downloadZip" data-toggle="tooltip"
+                    data-placement="top" title="download all the images"></i>
+                </span>
+              <!-- </a> -->
+        
+            </div>
+          </div>
+        </div>‏
+        <!-- <a href="#fake" class="enter">ENTER</a> -->
+        <!-- sidebar-search  -->
+        <div class="sidebar-menu">
+          <ul>
+
+            <!-- <input type="number" [min]="0" [max]="imagesService.numPersonTemp" #numPerson placeholder="Enter number of people in image" (change)="numPerson(numPerson)"> -->
+
+            <li class="header-menu">
+              <span>filter image</span>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-sun" [ngClass]="{'checked': Blur.checked==true, 'not-checked':Blur.checked==false}"
+                  (click)="isBlur(Blur.checked)"></i>
+                <label class="btn active" (click)="isBlur(Blur.checked)">
+                  <input type="checkbox" name='email1' #Blur><span> Blurred </span>
+                </label>
+                <span class="badge badge-pill badge-success notification" (click)="clearBlur()"
+                  [ngClass]="{'clear':isClearBlur==true,'not-clear':isClearBlur==false}"><span *ngIf="!isClearBlur">cancel</span><span *ngIf="isClearBlur">clear</span></span>
+              </a>
+            </li>
+
+            <li>
+              <a>
+                <i class="fa fa-eye"
+                  [ngClass]="{'checked': CloseEye.checked==true, 'not-checked':CloseEye.checked==false}"></i>
+                <label class="btn active" (click)="isCloseEye(CloseEye.checked)">
+                  <input type="checkbox" name='email1' #CloseEye><span>Closed eyes </span>
+
+                </label>
+                <span class="badge badge-pill badge-success notification" (click)="clearCloseEyes()"
+                  [ngClass]="{'clear':isClearEyes==true,'not-clear':isClearEyes==false}"><span *ngIf="!isClearEyes">cancel</span><span *ngIf="isClearEyes">clear</span></span>
+
+              </a>
+            </li>
+
+
+
+
+            <li class="header-menu">
+              <span>mapping image</span>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-home"
+                  [ngClass]="{'checked': Inside.checked==true, 'not-checked':Inside.checked==false}"></i>
+                <label class="btn active" (click)="isInside(Inside.checked)">
+                  <input type="checkbox" name='email1' #Inside><span> Indoor </span>
+                </label>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-sun"
+                  [ngClass]="{'checked': Outdoor.checked==true, 'not-checked':Outdoor.checked==false}"></i>
+                <label class="btn active" (click)="isOutdoor(Outdoor.checked)">
+                  <input type="checkbox" name='email1' #Outdoor><span> Outdoor </span>
+                </label>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-user"
+                  [ngClass]="{'checked': GroomAlone.checked==true, 'not-checked':GroomAlone.checked==false}"></i>
+                <label class="btn active" (click)="isGroomAlone(GroomAlone.checked)">
+                  <input type="checkbox" name='email1' #GroomAlone><span>Event groom </span>
+                </label>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-users"
+                  [ngClass]="{'checked': GroomContain.checked==true, 'not-checked':GroomContain.checked==false}"></i>
+                <label class="btn active" (click)="isGroomContain(GroomContain.checked)">
+                  <input type="checkbox" name='email1' #GroomContain><span>Contain groom</span>
+                </label>
+
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-child"
+                  [ngClass]="{'checked': child.checked==true, 'not-checked':child.checked==false}"></i>
+                <label class="btn active" (click)="isChild(child.checked)">
+                  <input type="checkbox" name='email1' #child><span> Children </span>
+                </label>
+              </a>
+            </li>
+<img src="../../../assets/1 פ~1.jpg">
+            <li>
+              <a>
+                <i class="fa fa-sort-numeric-up"
+                  [ngClass]="{'checked': numPerson1.changed==true, 'not-checked':numPerson1.changed==false}"></i>
+                <input type="number" #numPerson1 placeholder="Number of people" (change)="numPerson(numPerson1.value)"
+                  (input)="numPerson(numPerson1.value)" min=0>
+
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- sidebar-menu  -->
+      </div>
+      <!-- sidebar-content  -->
+      <div class="sidebar-footer">
+        <a>
+          <i class="fa fa-bell"></i>
+          <span class="badge badge-pill badge-warning notification">0</span>
+        </a>
+        <a>
+          <i class="fa fa-envelope"></i>
+          <span class="badge badge-pill badge-success notification">BETA</span>
+        </a>
+        <!-- <a href="#">
+          <i class="fa fa-cog"></i>
+          <span class="badge-sonar"></span>
+        </a> -->
+        <!--  -->
+        <!-- <a href="#">
+          <i class="fa fa-power-off"></i>
+        </a> -->
+      </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+
+
+    </main>
+    <!-- page-content" -->
+  </div>

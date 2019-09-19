@@ -1,0 +1,333 @@
+// import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, HostListener } from '@angular/core';
+
+import { FilterImage } from '../../models/filter-image';
+import { Image } from '../../models/image';
+import { ImagesService } from '../../services/images.service';
+import { ImagesComponent } from '../images/images.component';
+import { Url } from '../../services/url';
+import { HttpClient } from "@angular/common/http";
+import { forkJoin } from "rxjs";
+import * as JSZip from 'jszip';
+declare var require:any;
+@Component({
+  selector: 'app-side-bar',
+  templateUrl: './side-bar.component.html',
+  styleUrls: ['./side-bar.component.css']
+})
+export class SideBarComponent implements OnInit {
+  public get http(): HttpClient {
+    return this._http;
+  }
+  public set http(value: HttpClient) {
+    this._http = value;
+  }
+  filterImage: FilterImage = new FilterImage();
+
+  getRequests = [];
+  // m: boolean;
+  // imageMain: Image[];
+  // imageTemp: Image[];
+  constructor(private imagesService: ImagesService, private cdRef: ChangeDetectorRef, private _http: HttpClient) { }
+
+  ngOnInit() {
+    // this.imagesService.getImages().subscribe(res => {
+    //   this.imageMain = res;
+    //   this.imageTemp = res;
+    // })
+    const { dialog } = require('electron')
+console.log(dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }))
+  }
+  showCycle() {
+    this.imagesService.showCycle = !this.imagesService.showCycle;
+    this.gotoBotton();
+  }
+  isShow: boolean = false;
+  topPosToStartShowing = 100;
+  @HostListener('window:scroll')
+  checkScroll() {
+
+    // window의 scroll top
+    // Both window.pageYOffset and document.documentElement.scrollTop returns the same result in all the cases. window.pageYOffset is not supported below IE 9.
+
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+    console.log('[scroll]', scrollPosition);
+
+    if (scrollPosition >= this.topPosToStartShowing) {
+      this.isShow = true;
+    } else {
+      this.isShow = false;
+    }
+  }
+  gotoBotton() {
+    if (this.imagesService.showCycle)
+      window.scroll({
+        top: 1000000000000,
+        left: 0,
+        behavior: 'smooth'
+      });
+    if (!this.imagesService.showCycle)
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    // break;
+  }
+
+  filterAflerFalse() {
+    this.imagesService.imageTemp = this.imagesService.imageMain;
+    if (this.filterImage.isBlur == true)
+      this.isBlur(true);
+    if (this.filterImage.isDark == true)
+      this.isDark(true);
+    if (this.filterImage.isCloseEye == true)
+      this.isCloseEye(true);
+    if (this.filterImage.isCutFace == true)
+      this.isCutFace(true);
+    if (this.filterImage.isIndoors == true)
+      this.isInside(true);
+    if (this.filterImage.isOutdoors == true)
+      this.isOutdoor(true);
+    if (this.filterImage.isGroomAlone == true)
+      this.isGroomAlone(true);
+    if (this.filterImage.isGroomContain == true)
+      this.isGroomContain(true);
+    if (this.filterImage.ischild == true)
+      this.isChild(true);
+    // if (this.filterImage.isAdult == true)
+    //   this.isAdult(true);
+    if (this.filterImage.numChild != undefined)
+      this.numPerson(this.filterImage.numChild);
+    // this.images.urls = this.imagesService.imageTemp["url"];
+    this.urlFilter();
+
+  }
+  urlFilter() {
+    this.imagesService.urls = new Array;
+    for (var i = 0; i < this.imagesService.imageTemp.length; i++) {
+      var u = new Url;
+      u = this.imagesService.imageTemp[i].url;
+     var t="http://localhost:50637/UploadFile/"+this.imagesService.imageTemp[i].name;
+
+      this.imagesService.urls.push(t);
+      // debugger;
+    }
+
+    this.maxNumPerson();
+
+  }
+  isBlur(blur) {
+    this.filterImage.isBlur = blur;
+
+    if (blur == true) {
+      this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.isBlur == true);
+      // this.images.urls = this.imagesService.imageTemp["url"];
+      this.urlFilter();
+    }
+    else
+      this.filterAflerFalse();
+  }
+  isDark(dark) {
+    this.filterImage.isDark = dark;
+    if (dark == true) {
+      this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.isDark == true);
+      // this.images.urls = this.imagesService.imageTemp["url"];
+      this.urlFilter();
+
+
+    }
+    else
+      this.filterAflerFalse();
+  }
+  isCloseEye(closeEye) {
+    debugger;
+    this.filterImage.isCloseEye = closeEye;
+    if (closeEye == true) {
+      this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.isClosedEye == true);
+      // this.images.urls = this.imagesService.imageTemp["url"];
+      this.urlFilter();
+
+    }
+    else
+      this.filterAflerFalse();
+  }
+  isCutFace(cutFace) {
+    this.filterImage.isCutFace = cutFace;
+    if (cutFace == true) {
+      this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.isCutFace == true);
+      // this.images.urls = this.imagesService.imageTemp["url"];
+      this.urlFilter();
+
+    }
+    else
+      this.filterAflerFalse();
+  }
+
+
+  isInside(Inside) {
+    this.filterImage.isIndoors = Inside;
+    if (Inside == true) {
+      this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.isIndoors == true);
+      // this.images.urls = this.imagesService.imageTemp["url"];
+      this.urlFilter();
+
+    }
+    else
+      this.filterAflerFalse();
+  }
+  isOutdoor(Outdoor) {
+    this.filterImage.isOutdoors = Outdoor;
+    if (Outdoor == true) {
+      this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.isOutdoors == true);
+      // this.images.urls = this.imagesService.imageTemp["url"];
+      this.urlFilter();
+    }
+    else
+      this.filterAflerFalse();
+  }
+  isGroomAlone(GroomAlone) {
+    this.filterImage.isGroomAlone = GroomAlone;
+    if (GroomAlone == true) {
+      this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.isGroom == true && p.numPerson == 1);
+      // this.images.urls = this.imagesService.imageTemp["url"];
+      this.urlFilter();
+
+    }
+    else
+      this.filterAflerFalse();
+  }
+  isGroomContain(GroomContain) {
+    this.filterImage.isGroomContain = GroomContain;
+    if (GroomContain == true) {
+      this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.isGroom == true);
+      // this.images.urls = this.imagesService.imageTemp["url"];
+      this.urlFilter();
+
+    }
+    else
+      this.filterAflerFalse();
+  }
+  isChild(child) {
+    this.filterImage.ischild = child;
+    if (child == true) {
+      this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.hasChildren == true);
+      this.urlFilter();
+      // this.images.urls = this.imagesService.imageTemp["url"];
+    }
+    else
+      this.filterAflerFalse();
+  }
+  // isAdult(Adult) {
+  //   this.filterImage.isAdult = Adult;
+  //   if (Adult == true) {
+  //     this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.hasAdults == true);
+  //     // this.images.urls = this.imagesService.imageTemp["url"];
+  //     this.urlFilter();
+
+  //   }
+  //   else
+  //     this.filterAflerFalse();
+  // }
+  numPerson(num) {
+    // this.filterImage.numChild=num;
+    // this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.numPerson==num);
+    this.filterImage.numChild = undefined;
+    this.filterAflerFalse();
+    if (num != "") {
+      this.filterImage.numChild = num;
+      this.imagesService.imageTemp = this.imagesService.imageTemp.filter(p => p.numPerson == num);
+      this.urlFilter();
+    }
+
+  }
+  maxNumPerson() {
+    this.imagesService.maxNumPerson
+  }
+  isClearBlur: boolean = true;
+  isClearEyes: boolean = true;
+  // change
+  clearBlur() {
+    // this.imagesService.imageTemp=
+    // if (this.isClearBlur) {
+    debugger
+    if (this.isClearBlur) {
+      this.imagesService.imageTemp.forEach(e => {
+        if (e.isBlur == true)
+
+          this.imagesService.DeleteImg(e.url);
+      });
+    }
+    else
+      this.imagesService.recycleBin.forEach(e => {
+        if (e.isBlur == true)
+
+          this.imagesService.undoDelete(e);
+      });
+    this.isClearBlur = !this.isClearBlur;
+  }
+
+  clearCloseEyes() {
+    debugger
+
+    if (this.isClearEyes) {
+      this.imagesService.imageTemp.forEach(e => {
+        if (e.isClosedEye == true)
+
+          this.imagesService.DeleteImg(e.url);
+      });
+    }
+    else
+      this.imagesService.recycleBin.forEach(e => {
+        if (e.isClosedEye == true)
+          this.imagesService.undoDelete(e);
+      });
+    this.isClearEyes = !this.isClearEyes;
+  }
+  SaveFilter() {
+    if(!localStorage.getItem("path")){
+      const {shell} = require('electron') // deconstructing assignment
+      var fs = require('fs');
+      const {dialog} = require('electron').remote;
+      // var remote = require('remote');
+  // var dialog = remote.require('electron').dialog;
+  
+  var path = dialog.showOpenDialog({
+      properties: ['openDirectory']
+  });
+  console.log(path);
+  debugger;
+    }
+    
+    var name = "";
+    this.filterImage.isAdult == true ? name += "_Adult" : null;
+    this.filterImage.isBlur == true ? name += "_Blur" : null;
+    this.filterImage.isCloseEye == true ? name += "_CloseEye" : null;
+    this.filterImage.isCutFace == true ? name += "_CutFace" : null;
+    this.filterImage.isDark == true ? name += "_Dark" : null;
+    this.filterImage.isGroomAlone == true ? name += "_GroomAlone" : null;
+    this.filterImage.isGroomContain == true ? name += "_GroomContain" : null;
+    this.filterImage.isIndoors == true ? name += "_Indoors" : null;
+    this.filterImage.isOutdoors == true ? name += "_Outdoors" : null;
+    this.filterImage.ischild == true ? name += "_child" : null;
+    
+    this.filterImage.numChild> 0 ? name +="_num person="+ this.filterImage.numChild.toString() : null;
+    if (name == "")
+      name = "all";
+    var data: string[] = [name];
+    for (let index = 0; index < this.imagesService.imageTemp.length; index++) {
+      data.push(this.imagesService.imageTemp[index].url.toString());
+      data.push(this.imagesService.imageTemp[index].name.toString());
+
+    }
+    this.imagesService.SaveFilter(data).subscribe(res => {
+
+    })
+  }
+
+  private createGetRequets(data: string[]) {
+
+    data.forEach(url => this.getRequests.push(this._http.get(url, { responseType: 'blob' })));
+  }
+}

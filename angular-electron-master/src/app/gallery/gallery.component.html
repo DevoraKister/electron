@@ -1,0 +1,19 @@
+<div style="background-color: white;width:100%;height:15vh;"></div>
+
+<div class="row justify-content-between">
+    <div class="col-3">
+        <app-side-bar id="side-bar" style="z-index:2;  position: fixed;"></app-side-bar>
+    </div>
+    <div class="col-9">
+        <div *ngIf="imagesService.gotImages==false" class="col-10">
+                <div style="background-color: white;width:100%;height:25vh;"></div>
+            <app-progress-bar></app-progress-bar>
+        </div>
+        <div *ngIf="imagesService.gotImages==true">
+            <app-images style="z-index: 1;margin-left: 25vw;"></app-images>
+<img src="c:///TakeAPeek/1~1.jpg">ddsd
+<img src="data:image/png;base64,c:///TakeAPeek/1~1.jpg" />
+        </div>
+
+    </div>
+</div>
