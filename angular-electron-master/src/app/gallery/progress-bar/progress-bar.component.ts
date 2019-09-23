@@ -10,7 +10,7 @@ import { ImagesService } from '../../services/images.service';
 export class ProgressBarComponent{
 
 
-  constructor(private imageService:ImagesService) {
+  constructor(public imageService:ImagesService) {
     this.sizeUploadFiles=imageService.sizeUploadFiles;
     this.part=this.sizeUploadFiles/100;
     setInterval(() => { 

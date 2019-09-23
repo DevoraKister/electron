@@ -26,10 +26,13 @@ function createWindow() {
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });
-    win.loadURL('http://localhost:4222');
+    // win.loadURL('http://localhost:4222');
+    win.loadFile('C:/Users/user1/Documents/יהודית/google/eventProject/electron/angular-electron-master/dist/index.html');
+    // win.loadFile('dist/index.html');
   } else {
     win.loadURL(url.format({
-      pathname: path.join(__dirname, 'dist/angular-electron/index.html'),
+      pathname: path.join("C:/Users/user1/Documents/יהודית/google/eventProject/electron/angular-electron-master/dist/index.html"),
+      // pathname: path.join(__dirname, 'dist/angular-electron/index.html'),
       // pathname: path.join(__dirname, 'dist/index.html'),
       protocol: 'file:',
       slashes: true

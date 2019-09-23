@@ -10,7 +10,7 @@ export class GalleryComponent implements OnInit {
 
   flag:boolean=false;
   img="c://TakeAPeek/1~1.jpg";
-  constructor(private imagesService:ImagesService) { }
+  constructor(public imagesService:ImagesService) { }
 
   ngOnInit() {
   }

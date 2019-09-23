@@ -12,7 +12,7 @@ import { ImagesService } from '../../services/images.service';
 export class HeaderComponent implements OnInit {
 
   isScroll:boolean=false;
-  constructor(private scrollService:ScrollService,private _http: HttpClient,private imageService:ImagesService) { }
+  constructor(public scrollService:ScrollService,public _http: HttpClient,public imageService:ImagesService) { }
   public get http(): HttpClient {
     return this._http;
   }

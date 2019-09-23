@@ -77,11 +77,11 @@ export class ImagesService {
   }
   InsertImages(formData, sizeFiles): Observable<WebResult<Image[]>> {
     this.sizeUploadFiles = sizeFiles;
-    return this.http.post<WebResult<Image[]>>(environment.baseRoute + 'ElectronImage/InsertImages', formData);
+    return this.http.post<WebResult<Image[]>>("http://localhost:50637/UploadFile/"+ 'ElectronImage/InsertImages', formData);
 
   }
   hasGroom() {
-    return this.http.get<WebResult<any>>(environment.baseRoute + 'ElectronImage/HasGroom');
+    return this.http.get<WebResult<any>>("http://localhost:50637/UploadFile/" + 'ElectronImage/HasGroom');
   }
   getImages(): Observable<WebResult<Image[]>> {
     const headers = new HttpHeaders()
@@ -90,15 +90,15 @@ export class ImagesService {
       .append('Access-Control-Allow-Methods', 'GET')
       .append('Access-Control-Allow-Origin', '*');
     // return this.http.get<Account>(baseUrl + 'accounts',  {headers});
-    return this.http.get<WebResult<Image[]>>(environment.baseRoute + 'ElectronImage/getImages', { headers });
+    return this.http.get<WebResult<Image[]>>("http://localhost:50637/WebApi/" + 'ElectronImage/getImages', { headers });
 
   }
   InsertImagesGroom(formData) {
-    return this.http.post<WebResult<any>>(environment.baseRoute + 'ElectronImage/InsertGroom', formData);
+    return this.http.post<WebResult<any>>("http://localhost:50637/WebApi/" + 'ElectronImage/InsertGroom', formData);
 
   }
   SaveFilter(data: string[]) {
-    return this.http.post<WebResult<any>>(environment.baseRoute + 'ElectronImage/SaveFilter', data);
+    return this.http.post<WebResult<any>>("http://localhost:50637/WebApi/" + 'ElectronImage/SaveFilter', data);
   }
   maxNumPerson() {
     var max: number = 0
@@ -113,10 +113,10 @@ export class ImagesService {
     debugger;
     this.img = new Image();
     this.img.url = url;
-    return this.http.post<WebResult<any>>(environment.baseRoute + 'ElectronImage/DeleteImage', this.img);
+    return this.http.post<WebResult<any>>("http://localhost:50637/WebApi/" + 'ElectronImage/DeleteImage', this.img);
   }
   getRecycleBin(): Observable<WebResult<Image[]>> {
-    return this.http.get<WebResult<Image[]>>(environment.baseRoute + 'ElectronImage/getRecycleBin');
+    return this.http.get<WebResult<Image[]>>("http://localhost:50637/WebApi/" + 'ElectronImage/getRecycleBin');
   }
   DeleteImg(url) {
     debugger;
@@ -157,7 +157,7 @@ export class ImagesService {
     this.recycleBin= this.recycleBin.filter(image=>image.url!=img.url);
 
     // this.cdRef.detectChanges();
-    return this.http.post<WebResult<any>>(environment.baseRoute+'ElectronImage/UndoDelete',img)
+    return this.http.post<WebResult<any>>("http://localhost:50637/WebApi/"+'ElectronImage/UndoDelete',img)
   }
 
 }

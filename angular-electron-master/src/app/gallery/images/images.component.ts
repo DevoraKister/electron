@@ -25,8 +25,8 @@ export class ImagesComponent implements OnInit {
   // public set http(value: HttpClient) {
   //   this._http = value;
   // }
-  constructor(private _http: HttpClient, public imagesService: ImagesService,
-    private cdRef: ChangeDetectorRef,private toastr:ToastrService) { }
+  constructor(public _http: HttpClient, public imagesService: ImagesService,
+    public cdRef: ChangeDetectorRef,public toastr:ToastrService) { }
   public num = [1, 2, 3, 4, 5];
   selected: boolean = false;
   selectedGroom: boolean = false;

@@ -33,7 +33,7 @@ import { SideBarComponent } from './gallery/side-bar/side-bar.component';
 import { HeaderComponent } from './gallery/header/header.component';
 // import { FormsModule } from '@angular/forms';
 import { ProgressBarComponent } from './gallery/progress-bar/progress-bar.component';
-import { NgCircleProgressModule } from 'ng-circle-progress';
+// import { NgCircleProgressModule } from 'ng-circle-progress';
 import { GroomComponent } from './gallery/groom/groom.component';
 import { CheckboxDirective } from '../app/shared/directives/checkbox.directive';
 import { RecycleBinComponent } from './gallery/recycle-bin/recycle-bin.component';
@@ -74,24 +74,24 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
   
   
-    NgCircleProgressModule.forRoot({
-      // "backgroundColor": "maroon",
-      "radius": 50,
-      "maxPercent": 100,
-      "unitsColor": "#FFFFFF",
-      "outerStrokeWidth": 5,
-      "outerStrokeColor": "#FFFFFF",
-      "innerStrokeColor": "#FFFFFF",
-      "titleColor": "#FFFFFF",
-      "subtitleColor": "#483500",
-      "showSubtitle": false,
-      "showInnerStroke": false,
-      "startFromZero": false,
+    // NgCircleProgressModule.forRoot({
+    //   // "backgroundColor": "maroon",
+    //   "radius": 50,
+    //   "maxPercent": 100,
+    //   "unitsColor": "#FFFFFF",
+    //   "outerStrokeWidth": 5,
+    //   "outerStrokeColor": "#FFFFFF",
+    //   "innerStrokeColor": "#FFFFFF",
+    //   "titleColor": "#FFFFFF",
+    //   "subtitleColor": "#483500",
+    //   "showSubtitle": false,
+    //   "showInnerStroke": false,
+    //   "startFromZero": false,
 
      
-      // HttpClientModule,
-      // CookieModule.forRoot()
-    }),
+    //   // HttpClientModule,
+    //   // CookieModule.forRoot()
+    // }),
     ToastrModule.forRoot(
       {
         positionClass: 'toast-top-center',

@@ -3,5 +3,6 @@ export const AppConfig = {
   environment: 'PROD'
 };
 export const environment = {
-  production: true
+  production: true,
+  baseRoute: "http://localhost:50637/WebApi/"
 };

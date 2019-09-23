@@ -28,7 +28,7 @@ export class SideBarComponent implements OnInit {
   // m: boolean;
   // imageMain: Image[];
   // imageTemp: Image[];
-  constructor(private imagesService: ImagesService, private cdRef: ChangeDetectorRef, private _http: HttpClient) { }
+  constructor(public imagesService: ImagesService, public cdRef: ChangeDetectorRef, public _http: HttpClient) { }
 
   ngOnInit() {
     // this.imagesService.getImages().subscribe(res => {

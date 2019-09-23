@@ -8,7 +8,7 @@ import { ImagesService } from '../../services/images.service';
 })
 export class RecycleBinComponent implements OnInit {
 
-  constructor(private imageService:ImagesService) { }
+  constructor(public imageService:ImagesService) { }
 
   ngOnInit() {
   }

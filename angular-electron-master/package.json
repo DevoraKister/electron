@@ -14,14 +14,14 @@
     "typescript",
     "sass"
   ],
-  "main": "main.js",
+  "main": "./main.js",
   "private": true,
   "scripts": {
-    "postinstall": "npm run postinstall:electron && electron-builder install-app-deps",
+    "postinstall": "install-app-deps",
     "postinstall:web": "node postinstall-web",
     "postinstall:electron": "node postinstall",
     "ng": "ng",
-    "start": "npm run postinstall:electron && npm-run-all -p ng:serve electron:serve",
+    "start": "npm install && electron ./app",
     "build": "npm run postinstall:electron && npm run electron:serve-tsc && ng build",
     "build:dev": "npm run build -- -c dev",
     "build:prod": "npm run build -- -c production",
@@ -36,7 +36,9 @@
     "test": "npm run postinstall:web && ng test",
     "e2e": "npm run build:prod && mocha --timeout 300000 --require ts-node/register e2e/**/*.spec.ts",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.802.2",
@@ -60,10 +62,11 @@
     "codelyzer": "5.1.0",
     "conventional-changelog-cli": "2.0.21",
     "core-js": "3.1.4",
-    "electron": "6.0.2",
-    "electron-builder": "21.2.0",
+    "electron": "^6.0.10",
+    "electron-builder": "^21.2.0",
     "electron-packager": "^14.0.6",
     "electron-reload": "1.5.0",
+    "electron-winstaller": "^4.0.0",
     "jasmine-core": "3.4.0",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "4.2.0",
@@ -87,9 +90,9 @@
   },
   "dependencies": {
     "@angular/animations": "^8.2.6",
+    "electron-builder-squirrel-windows": "^21.2.0",
     "file-saver": "^2.0.2",
     "jszip": "^3.2.2",
-    "ng-circle-progress": "^1.5.0",
     "ngx-toastr": "^10.2.0",
     "write-file": "^1.0.0"
   },
@@ -97,5 +100,34 @@
     "*.js",
     "build",
     "node_modules"
-  ]
+    
+  ],
+  "build": {
+    "appId": "yourappid",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "squirrelWindows":{"iconUrl":"https://storage.googleapis.com/assetstakeapeek/logo-title.ico"},
+    "win": {
+      "target": "squirrel",
+      "icon": "https://storage.googleapis.com/assetstakeapeek/logo-title.ico"
+    }
+  }
 }

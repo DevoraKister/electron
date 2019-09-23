@@ -9,7 +9,7 @@ import { ImagesService } from '../services/images.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router:Router,private imageService:ImagesService) { }
+  constructor(public router:Router,public imageService:ImagesService) { }
 
   ngOnInit() {
     this.imageService.isHome=true;

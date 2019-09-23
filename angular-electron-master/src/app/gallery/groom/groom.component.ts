@@ -8,7 +8,7 @@ import { ImagesService } from '../../services/images.service';
 })
 export class GroomComponent implements OnInit {
 
-  constructor(private imagesService:ImagesService) { }
+  constructor(public imagesService:ImagesService) { }
   fileToUpload: File = null;
   url: string;
   ngOnInit() {
